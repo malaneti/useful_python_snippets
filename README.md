@@ -15,7 +15,9 @@ This is a compilation of useful python snippets. They all include a brief explan
   * Timestamps
   * Useful commands for web session data
   *
+
 Coming soon...
+
 * **regression**
 * **NLP**
 * **classification - scikit**
