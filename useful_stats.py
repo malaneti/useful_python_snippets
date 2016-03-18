@@ -1,11 +1,13 @@
 
 
-
 '''
 CONTENTS:
-
-
+This script contains examples of statistical tests and how to use them.
+Confidence intervals, bootstrapping, ttests, wilcoxon, anova, tukey hsd, chi2 dist contingeny tables.
 '''
+
+import numpy as np
+from scipy import stats
 
 #confidence intervals
 '''
@@ -18,13 +20,13 @@ with 95% confidence
 
 # if we have sigma and 95% confidence, we use 
 x_bar = np.mean(X)
-upper, lower = -1.96 *sigma/sqrt(n) + x_bar, 1.96 *sigma/sqrt(n) + x_bar 
+upper, lower = -1.96 *sigma/np.sqrt(n) + x_bar, 1.96 *sigma/np.sqrt(n) + x_bar 
 # in the case of alpha = 0.05, this gives us _alpha_2 = 1.96
 z_alpha_2 = stats.norm.isf(alpha/2)
 # or,
 # The 68% confidence interval for the mean of N draws from a 
 # normal distribution with mean mu and std deviation sigma is
-stats.norm.interval(0.68, loc=mu, scale=sigma/sqrt(N))
+stats.norm.interval(0.68, loc=mu, scale=sigma/np.sqrt(N))
 # example: for mu = 5
 # >>> stats.norm.interval(0.68, loc=mu, scale=sigma/sqrt(N))
 # (4.2044336934321977, 5.7955663065678031)
@@ -36,11 +38,11 @@ stats.norm.interval(0.68, loc=mu, scale=sigma/sqrt(N))
 # t = (x_bar - mu ) / (s/sqrt(n)) 
 #INCLUDE DEGREES OF FREEDOMS, deg = n - 1
 z_alpha_2 = stats.t.isf(alpha/2 , deg)
->>> N = 20
->>> stats.t.interval(0.95, N-1, loc=mu, scale=sigma/sqrt(N))
-(1.2558847486407245, 8.7441152513592755)
->>> stats.norm.interval(0.95, loc=mu, scale=sigma/sqrt(N))
-(1.4939098376936739, 8.5060901623063252)
+N = 20
+stats.t.interval(0.95, N-1, loc=mu, scale=sigma/np.sqrt(N))
+# (1.2558847486407245, 8.7441152513592755)
+stats.norm.interval(0.95, loc=mu, scale=sigma/np.sqrt(N))
+# (1.4939098376936739, 8.5060901623063252)
 
 
 # bayesian approach to confidence intervals
@@ -94,7 +96,7 @@ stat, pval = stats.ttest_rel(a, b)
 stat, pval = stats.ttest_ind(a, b)
 
 #If not, welche's t test is used instead. 
-stat, pval = ttest_ind(a, b, equal_var=False)
+stat, pval = stats.ttest_ind(a, b, equal_var=False)
 
 
 
