@@ -1,11 +1,18 @@
 
+'''
+CONTENTS
+Some of the code presented here is from bsweger/useful_pandas_snippets.py
+I've augmented it to include useful snippets to read large csv files with iterators, 
+working with timestamps, and working with web sessions.
+'''
 
-#pandas snippets
+import pandas as pd
+
 
 #load large csv file
 reader = pd.read_csv(original_filename , iterator = True, chunksize = 10000)
 
-# Filter for all the readings between dates 03-01-2012 to 03-31-2012.
+# Filter records according to values in columns
 # Set Captured time as index
 list_of_dfs = [chunk[(chunk[col1]>a) & (chunk[col2]<b)] for chunk in reader]
 df = pd.concat(list_of_dfs)
@@ -31,7 +38,7 @@ df = df[~df.column.isin(value_list)]
 del df['column']
 
 #Select from DataFrame using criteria from multiple columns
-newdf = df[(df['column_one']>2004) & (df['column_two']==9)]
+newdf = df[(df['column_one']>val1) & (df['column_two']==val2)]
 
 #Rename several DataFrame columns
 df = df.rename(columns = {
@@ -87,7 +94,6 @@ len(df.index)
 # Set a col of df as the index
 df.set_index('id',inplace=True)
 
-
 #Pivot data (with flexibility about what what
 #becomes a column and what stays a row).
 #Syntax works on Pandas >= .14
@@ -139,13 +145,10 @@ df.columns = df.columns.get_level_values(0)
 # one hot encode categorical variables
 dfnew = pd.get_dummies(df, columns=[u'col1', u'col2', u'col3'])
 
-
-
 #merge 2 dataframes
 df_merged = pd.merge(
 	left=df1, right=df2, 
 	left_on='col1', right_on='col2')
-
 
 
 '''
@@ -200,9 +203,3 @@ action_detail_gp = flatten_df(pd.pivot_table(
 	fill_value=0).reset_index())
 
 
-
-#stats
-
-
-
-#seaborn
