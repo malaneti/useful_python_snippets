@@ -59,17 +59,8 @@ df.rename(columns=lambda x: x.split('.')[-1], inplace=True)
 for index, row in df.iterrows():
     print index, row['some column']  
 
-#Next few examples show how to work with text data in Pandas.
-#Full list of .str functions: http://pandas.pydata.org/pandas-docs/stable/text.html
-
-#Slice values in a DataFrame column (aka Series)
-df.column.str[0:2]
-
 #Lower-case everything in a DataFrame column
 df.column_name = df.column_name.str.lower()
-
-#Get length of data in a DataFrame column
-df.column_name.str.len()
 
 #Sort dataframe by multiple columns
 df = df.sort(['col1','col2','col3'],ascending=[1,1,0])
@@ -114,8 +105,6 @@ df['column_to_change'][(df['column1'] == some_value) & (df['column2'] == some_ot
 
 # Remove row if one of the values is zero
 df = df[(df != 0).all(1)]
-
-
 
 #Clean up missing values in multiple DataFrame columns
 df = df.fillna({
@@ -167,18 +156,16 @@ x = u.timestamp
 y = [str(i) for i in x.values]
 ux = [y[i][0:4]+'-'+y[i][4:6]+'-'+y[i][6:8]+' '+y[i][8:10]+':'+y[i][10:12]+':'+y[i][12:14] for i in range(len(y))]
 
-
-#web sessions
+'''
+web sessions
 
 '''
-user_id	action	action_type	action_detail	device_type	secs_elapsed
-0	d1mm9tcy42	lookup	NaN	NaN	Windows Desktop	319
-1	d1mm9tcy42	search_results	click	view_search_results	Windows Desktop	67753
-2	d1mm9tcy42	lookup	NaN	NaN	Windows Desktop	301
-3	d1mm9tcy42	search_results	click	view_search_results	Windows Desktop	22141
-4	d1mm9tcy42	lookup	NaN	NaN	Windows Desktop	435
-
-'''
+# user_id	action	action_type	action_detail	device_type	secs_elapsed
+# 0	d1mm9tcy42	lookup	NaN	NaN	Windows Desktop	319
+# 1	d1mm9tcy42	search_results	click	view_search_results	Windows Desktop	67753
+# 2	d1mm9tcy42	lookup	NaN	NaN	Windows Desktop	301
+# 3	d1mm9tcy42	search_results	click	view_search_results	Windows Desktop	22141
+# 4	d1mm9tcy42	lookup	NaN	NaN	Windows Desktop	435
 
 
 def flatten_df(df,delimeter="_",suffix=""):
